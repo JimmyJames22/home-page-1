@@ -26,6 +26,7 @@ export default {
 * {
   outline: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
 }
 
 </style>

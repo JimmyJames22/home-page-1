@@ -80,6 +80,12 @@
           </button>
         </div>
       </div>
+      <div class="add">
+        <button>
+          <h1>+</h1>
+          <h2>Create Set</h2>
+        </button>
+      </div>
     </div>
     <div class="footer">
 
@@ -265,7 +271,7 @@ export default {
   background-color: rgba(77, 77, 77, 0.658);
 }
 
-.content h1 {
+.content .sets h1 {
   text-align: center;
   padding: 6px;
   margin: 6px;
@@ -299,7 +305,44 @@ export default {
   background-color: rgba(14, 173, 35, 0.5);
 }
 
-.footer {
+.content .add button {
+  position: fixed;
+  right: 3%;
+  bottom: 5%;
+  white-space: nowrap;
+  border: 0px solid black;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.199);
+  color: white;
+}
+
+.content .add button:hover {
+  background-color: rgb(160, 160, 160);
+  transition-duration: 300ms;;
+}
+
+.content .add button h1 {
+  float: left;
+  margin: 7px;
+}
+
+.content .add button:hover h1 {
+  transition-delay: 250ms;
+  transition-duration: 75ms;
+  font-size: 0px;
+  margin: 0px;
+}
+
+.content .add button h2 {
+  font-size: 0px;
+  float: right;
+}
+
+.content .add button:hover h2 {
+  transition-duration: 300ms;
+  font-size: 15px;
+  float: right;
+  margin: 14px;
 }
 
 </style>
