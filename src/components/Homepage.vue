@@ -328,7 +328,7 @@ export default {
 
 .content .add button:hover h1 {
   transition-delay: 250ms;
-  transition-duration: 75ms;
+  transition-duration: 125ms;
   font-size: 0px;
   margin: 0px;
 }
