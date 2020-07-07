@@ -5,6 +5,7 @@
         <button @click="()=>this.$router.push('home')">Logo</button>
         <button class="inactive" @click="()=>this.$router.push('sets')">Sets</button>
         <button class="active" @click="()=>this.$router.push('home')">Overview</button>
+        <button class="inactive" @click="()=>this.$router.push('classes')">Classes</button>
         <button class="inactive" @click="()=>this.$router.push('info')">Info</button>
       </div>
       <div class="user">
@@ -80,6 +81,9 @@
         </div>
       </div>
     </div>
+    <div class="footer">
+
+    </div>
   </div>
 </template>
 
@@ -109,10 +113,9 @@ export default {
 }
 
 .page {
-  height: 1500px;
   width: 100%;
   display: grid;
-  grid-template-rows: 375px 1fr 1fr;
+  grid-template-rows: 375px 635px 90px;
 }
 
 .header {
@@ -125,7 +128,7 @@ export default {
   grid-area: 1/1/span 1/span 3;
   background-color: rgb(15, 179, 72);
   display: grid;
-  grid-template-columns: 15% repeat(3, 1fr);
+  grid-template-columns: 15% repeat(3, 1fr) 15%;
 }
 
 .navbar h1 {
@@ -294,6 +297,9 @@ export default {
 
 .content .new h1 {
   background-color: rgba(14, 173, 35, 0.5);
+}
+
+.footer {
 }
 
 </style>

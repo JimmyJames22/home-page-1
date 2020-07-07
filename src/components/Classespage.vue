@@ -1,12 +1,12 @@
 <template>
   <div class="header">
-    <div class="navbar">
-      <button class="inactive" @click="()=>this.$router.push('home')">Logo</button>
-      <button class="active" @click="()=>this.$router.push('sets')">Sets</button>
-      <button class="inactive" @click="()=>this.$router.push('home')">Overview</button>
-      <button class="inactive" @click="()=>this.$router.push('classes')">Classes</button>
-      <button class="inactive" @click="()=>this.$router.push('info')">Info</button>
-    </div>
+      <div class="navbar">
+        <button class="inactive" @click="()=>this.$router.push('home')">Logo</button>
+        <button class="inactive" @click="()=>this.$router.push('sets')">Sets</button>
+        <button class="inactive" @click="()=>this.$router.push('home')">Overview</button>
+        <button class="active" @click="()=>this.$router.push('classes')">Classes</button>
+        <button class="inactive" @click="()=>this.$router.push('info')">Info</button>
+      </div>
   </div>
 </template>
 
@@ -48,5 +48,5 @@ export default {
 .navbar .inactive:hover {
   color: rgba(255, 255, 255, 0.75);
   transition-duration: 300ms;
-}  
+}
 </style>

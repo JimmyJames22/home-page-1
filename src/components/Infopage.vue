@@ -4,6 +4,7 @@
       <button class="inactive" @click="()=>this.$router.push('home')">Logo</button>
       <button class="inactive" @click="()=>this.$router.push('sets')">Sets</button>
       <button class="inactive" @click="()=>this.$router.push('home')">Overview</button>
+      <button class="inactive" @click="()=>this.$router.push('classes')">Classes</button>
       <button class="active" @click="()=>this.$router.push('info')">Info</button>
     </div>
   </div>
@@ -16,12 +17,11 @@ export default {
 </script>
 
 <style scoped>
-
 .navbar {
-  grid-area: 1/1/span 1/span 5;
+  grid-area: 1/1/span 1/span 3;
   background-color: rgb(15, 179, 72);
   display: grid;
-  grid-template-columns: 15% repeat(3, 1fr);
+  grid-template-columns: 15% repeat(3, 1fr) 15%;
 }
 
 .navbar h1 {
@@ -48,5 +48,5 @@ export default {
 .navbar .inactive:hover {
   color: rgba(255, 255, 255, 0.75);
   transition-duration: 300ms;
-}  
+}
 </style>
