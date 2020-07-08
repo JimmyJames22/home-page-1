@@ -307,6 +307,8 @@ export default {
 
 .content .add button {
   position: fixed;
+  height: 50px;
+  min-width: 50px;
   right: 3%;
   bottom: 5%;
   white-space: nowrap;
@@ -327,8 +329,6 @@ export default {
 }
 
 .content .add button:hover h1 {
-  transition-delay: 250ms;
-  transition-duration: 125ms;
   font-size: 0px;
   margin: 0px;
 }
