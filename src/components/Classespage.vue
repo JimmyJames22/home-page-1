@@ -22,6 +22,7 @@ export default {
   background-color: rgb(15, 179, 72);
   display: grid;
   grid-template-columns: 15% repeat(3, 1fr) 15%;
+
 }
 
 .navbar h1 {
@@ -39,6 +40,7 @@ export default {
   font-weight: 700;
   font-size: 17px;
   padding: 10px 0;
+  transition-duration: 300ms;
 }
 
 .navbar .active {

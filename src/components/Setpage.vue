@@ -16,13 +16,13 @@
           <a href="./home">Make one!</a>
         </div>
         <div class="yesset" v-else v-for="x in sets" :key="x.title">
-          <button class="set">
+          <button :class="{mastered: x.mastery>90, working: x.mastery<90 && x.mastery>30, unseen: x.mastery<30}" class="set">
             <div>
               <h1>{{ x.title }}</h1>
               <h2>By {{ x.author }}</h2>
             </div>
-            <div class="tags" v-for="tag in x.tags" :key="tag">
-              <div id=tag :style="{backgroundColor:tag}"></div>
+            <div class="tags">
+              <div class="tag" v-for="tag in x.tags" :key="tag" :id="tag"></div>
             </div>
           </button>
         </div>
@@ -53,26 +53,26 @@ export default {
           title: "Chem",
           author: 'James',
           terms: 84,
+          mastery: 99,
+          tags: ['blue', 'green', 'purple', 'yellow', 'orange', 'red', 'black'],
+          creation: '7.8.2020'
+        },
+        {
+          title: "Chem",
+          author: 'James',
+          terms: 84,
           mastery: 44,
-          tags: ['blue', 'green'],
+          tags: ['blue', 'green', 'purple'],
           creation: '7.8.2020'
         },
         {
-          title: 'English',
-          author: 'Zoe',
-          terms: 138,
-          mastery: 32,
-          tags: ['orange', 'yellow', 'green'],
+          title: "Chem",
+          author: 'James',
+          terms: 84,
+          mastery: 20,
+          tags: ['blue', 'green', 'purple'],
           creation: '7.8.2020'
         },
-        {
-          title: 'Spanish',
-          author: 'Sneha',
-          terms: 45,
-          mastery: 90,
-          tags: ['purple', 'yellow', 'blue'],
-          creation: '7.8.2020'
-        }
       ]
     }
   }
@@ -102,6 +102,7 @@ export default {
   font-weight: 700;
   font-size: 17px;
   padding: 10px 0;
+  transition-duration: 300ms;
 }
 
 .navbar .active {
@@ -151,46 +152,77 @@ export default {
 }
 
 .content .sets .yesset button {
+  transition-duration: 400ms;
   float: left;
-  width: 200px;
+  border: 0px solid black;
+  display: grid;
+  grid: 1fr / 11fr 2fr;
+  border-radius: 7px;  
+  padding: 5px;
+  margin: 20px;
   height: 150px;
-  margin: 30px;
-  background-color: rgb(226, 226, 226);
-  border: 0px;
-  border-radius: 7px;
-  display: grid;
-  grid-template-columns: 90% 1fr;
+  width: 200px;
 }
 
-.content .sets .yesset h1 {
-  white-space: nowrap;
-  text-align: left;
-  margin-top: 40px;
-  margin: 20px;
-  line-height: 30px;
+.content .sets .yesset .mastered:hover {
+  background-color: rgba(52, 202, 52, 0.24);
+  transition-duration: 400ms;
 }
 
-.content .sets .yesset h2 {
-  font-size: 18px;
+.content .sets .yesset .working:hover {
+  background-color: rgba(255, 216, 40, 0.438);
+  transition-duration: 400ms;
+}
+
+.content .sets .yesset .unseen:hover {
+  background-color: rgba(255, 0, 0, 0.247);
+  transition-duration: 400ms;
+}
+
+.content .sets .yesset button h1, h2 {
   text-align: left;
+  line-height: 17px;
+  margin: 17px;
+  font-size: 29px;
+}
+
+.content .sets .yesset button h2 {
   font-weight: 200;
-  line-height: 0px;
-  margin: 20px;
+  font-size: 17px;
 }
 
-.content .sets .yesset .tags {
-  height: 100%;
-  width: 100%;
+
+.content .sets .yesset button .tags {
   grid-column: 2;
-  margin: 10px;
+  grid-row: 1;
+  margin-top: 6px;
+  margin-right: 9px;
+  height: 90%;
+  width: auto;
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-gap: 5px;
+  grid-template-rows: repeat(7, 1fr);
+  grid-gap: 4px;
 }
 
-.content .sets .yesset .tags #tag {
-  width: 100%;
-  border-radius: 100%;
+.content .sets .yesset button .tags .tag {
+  height: auto;
+  border-radius: 4px;
+}
+
+#blue{
+  background-color: rgba(0, 60, 255, 0.466);
+} #green {
+  background-color: rgba(2, 109, 39, 0.699);
+} #purple {
+  background-color: rgba(76, 0, 255, 0.5);
+} #yellow {
+  background-color: rgb(244, 255, 88);
+} #orange {
+  background-color: rgba(216, 140, 0, 0.788);
+} #red {
+    background-color: rgba(255, 0, 0, 0.678);
+} #black {
+  background-color: rgb(0, 0, 0);
 }
 
 .content .add button {
@@ -208,7 +240,7 @@ export default {
 
 .content .add button:hover {
   background-color: rgb(160, 160, 160);
-  transition-duration: 300ms;;
+  transition-duration: 300ms;
 }
 
 .content .add button h1 {
@@ -224,6 +256,7 @@ export default {
 .content .add button h2 {
   font-size: 0px;
   float: right;
+  margin: 0px;
 }
 
 .content .add button:hover h2 {

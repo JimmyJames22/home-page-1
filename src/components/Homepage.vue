@@ -152,6 +152,7 @@ export default {
   font-weight: 700;
   font-size: 17px;
   padding: 10px 0;
+  transition-duration: 300ms;
 }
 
 .navbar .inactive:hover {
@@ -213,6 +214,7 @@ export default {
   display: grid;
   padding: 0px;
   grid: 2fr 1fr 0.5fr 0.5fr/1fr;
+  transition-duration: 300ms;
 }
 
 .content .sets .recent button:hover {
@@ -336,6 +338,7 @@ export default {
 .content .add button h2 {
   font-size: 0px;
   float: right;
+  margin: 0px;
 }
 
 .content .add button:hover h2 {

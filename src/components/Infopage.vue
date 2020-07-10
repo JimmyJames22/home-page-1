@@ -39,6 +39,7 @@ export default {
   font-weight: 700;
   font-size: 17px;
   padding: 10px 0;
+  transition-duration: 300ms;
 }
 
 .navbar .active {
