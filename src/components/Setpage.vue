@@ -15,11 +15,12 @@
           <h1>No sets yet :(</h1>
           <a href="./home">Make one!</a>
         </div>
-        <div class="yesset" v-else v-for="x in sets" :key="x.title">
+        <div class="yesset" v-else v-for="x in sets" :key="x.title" v-bind:style="{ gridTemplateColumns: `repeat(${yesSetCols}, 200px)` }">
           <button :class="{mastered: x.mastery>90, working: x.mastery<90 && x.mastery>30, unseen: x.mastery<30}" class="set">
             <div>
               <h1>{{ x.title }}</h1>
               <h2>By {{ x.author }}</h2>
+              <h3>{{ x.studied }}</h3>
             </div>
             <div class="tags">
               <div class="tag" v-for="tag in x.tags" :key="tag" :id="tag"></div>
@@ -38,6 +39,7 @@
 </template>
 
 <script>
+import func from '../../vue-temp/vue-editor-bridge';
 export default {
   props: {
     /*sets: {
@@ -54,7 +56,9 @@ export default {
           author: 'James',
           terms: 84,
           mastery: 99,
+          location: 1,
           tags: ['blue', 'green', 'purple', 'yellow', 'orange', 'red', 'black'],
+          studied: '7.10.2020',
           creation: '7.8.2020'
         },
         {
@@ -62,7 +66,9 @@ export default {
           author: 'James',
           terms: 84,
           mastery: 44,
-          tags: ['blue', 'green', 'purple'],
+          location: 2,
+          tags: ['blue', 'green', 'purple', 'yellow'],
+          studied: '8.14.2020',
           creation: '7.8.2020'
         },
         {
@@ -70,13 +76,74 @@ export default {
           author: 'James',
           terms: 84,
           mastery: 20,
+          location: 3,
           tags: ['blue', 'green', 'purple'],
-          creation: '7.8.2020'
+          studied: '1.1.2020',
+          creation: '7.8.2019'
+        },
+        {
+          title: "Chem",
+          author: 'James',
+          terms: 84,
+          mastery: 20,
+          location: 3,
+          tags: ['blue', 'green', 'purple'],
+          studied: '1.1.2020',
+          creation: '7.8.2019'
+        },
+        {
+          title: "Chem",
+          author: 'James',
+          terms: 84,
+          mastery: 20,
+          location: 3,
+          tags: ['blue', 'green', 'purple'],
+          studied: '1.1.2020',
+          creation: '7.8.2019'
+        },
+        {
+          title: "Chem",
+          author: 'James',
+          terms: 84,
+          mastery: 20,
+          location: 3,
+          tags: ['blue', 'green', 'purple'],
+          studied: '1.1.2020',
+          creation: '7.8.2019'
         },
       ]
     }
+  },
+  computed: {
+     yesSetCols: () => {
+      let yesSet = document.querySelector(".content.sets.yesset");
+      let numCols;
+      yesSet.style.display = "grid";
+      for(let i=0; i<yesSet.offsetWidth; i+=200){
+        numCols++;
+      }
+      return numCols;
+    },
+    yesSetRows: (numCols) => {
+      let yesSet = document.querySelector(".content.sets.yesset");
+      let numRows;
+      numRows = math.ciel(this.sets.length/numCols);
+      return numRows;
+    }
   }
 }
+
+function constructor (){
+  let yesSet = document.querySelector(".content.sets.yesset");
+  let numRows;
+  yesSet.style.display = "grid";
+  for(let i=0; i<yesSet.offsetWidth; i+=200){
+    numRows++;
+  }
+  yesSet.style.gridTemplateRows = "1fr repeat(numRows, 200px) 1fr";
+  yesSet.style.gridTemplateColumns = "";
+}
+
 </script>
 
 <style scoped>
@@ -179,7 +246,7 @@ export default {
   transition-duration: 400ms;
 }
 
-.content .sets .yesset button h1, h2 {
+.content .sets .yesset button h1, h2, h3 {
   text-align: left;
   line-height: 17px;
   margin: 17px;
@@ -191,6 +258,11 @@ export default {
   font-size: 17px;
 }
 
+.content .sets .yesset button h3 {
+  font-size: 13px;
+  font-weight: 200;
+  line-height: 0px;
+}
 
 .content .sets .yesset button .tags {
   grid-column: 2;
