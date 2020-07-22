@@ -6,27 +6,14 @@
 
 <script>
 export default {
-  name: 'App',
-  data () {
-    return {
-      sets: false,
-      home: true,
-      info: false,
-    }
-  },
-  methods: {
-    check: () => {
-    }
-  }
+  name: 'App'
 }
-
 </script>
 
 <style>
-* {
+#app {
   outline: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
 }
-
 </style>

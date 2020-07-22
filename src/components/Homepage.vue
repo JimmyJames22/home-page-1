@@ -107,7 +107,8 @@ export default {
         percent: 82
       }
     }
-  }, methods: {
+  }, 
+  methods: {
     
   }
 }
@@ -190,7 +191,7 @@ export default {
 .content {
   grid-row: 2;
   display: grid;
-  grid: 635px / 1fr 80% 1fr;
+  grid: 635px / minmax(100px, 1fr) minmax(640px, 925px) minmax(100px, 1fr);
 }
 
 .content .sets {

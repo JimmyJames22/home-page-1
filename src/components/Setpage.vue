@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div id="page">
     <div class="header">
       <div class="navbar">
         <button class="inactive" @click="()=>this.$router.push('home')">Logo</button>
@@ -10,22 +10,10 @@
       </div>
     </div>
     <div class="content">
-      <div class="sets">
+      <div id="sets">
         <div class="noset" v-if="sets.includes('noval')">
           <h1>No sets yet :(</h1>
           <a href="./home">Make one!</a>
-        </div>
-        <div class="yesset" v-else v-for="x in sets" :key="x.title" v-bind:style="{ gridTemplateColumns: `repeat(${yesSetCols}, 200px)` }">
-          <button :class="{mastered: x.mastery>90, working: x.mastery<90 && x.mastery>30, unseen: x.mastery<30}" class="set">
-            <div>
-              <h1>{{ x.title }}</h1>
-              <h2>By {{ x.author }}</h2>
-              <h3>{{ x.studied }}</h3>
-            </div>
-            <div class="tags">
-              <div class="tag" v-for="tag in x.tags" :key="tag" :id="tag"></div>
-            </div>
-          </button>
         </div>
       </div>
       <div class="add">
@@ -39,8 +27,11 @@
 </template>
 
 <script>
-import func from '../../vue-temp/vue-editor-bridge';
 export default {
+  name: 'Setpage',
+  mounted: function (){
+    this.makeSets(sets)
+  },
   props: {
     /*sets: {
       type: Array,
@@ -50,69 +41,49 @@ export default {
   },
   data () {
     return {
-      sets: [ // temporary
-        {
-          title: "Chem",
-          author: 'James',
-          terms: 84,
-          mastery: 99,
-          location: 1,
-          tags: ['blue', 'green', 'purple', 'yellow', 'orange', 'red', 'black'],
-          studied: '7.10.2020',
-          creation: '7.8.2020'
-        },
-        {
-          title: "Chem",
-          author: 'James',
-          terms: 84,
-          mastery: 44,
-          location: 2,
-          tags: ['blue', 'green', 'purple', 'yellow'],
-          studied: '8.14.2020',
-          creation: '7.8.2020'
-        },
-        {
-          title: "Chem",
-          author: 'James',
-          terms: 84,
-          mastery: 20,
-          location: 3,
-          tags: ['blue', 'green', 'purple'],
-          studied: '1.1.2020',
-          creation: '7.8.2019'
-        },
-        {
-          title: "Chem",
-          author: 'James',
-          terms: 84,
-          mastery: 20,
-          location: 3,
-          tags: ['blue', 'green', 'purple'],
-          studied: '1.1.2020',
-          creation: '7.8.2019'
-        },
-        {
-          title: "Chem",
-          author: 'James',
-          terms: 84,
-          mastery: 20,
-          location: 3,
-          tags: ['blue', 'green', 'purple'],
-          studied: '1.1.2020',
-          creation: '7.8.2019'
-        },
-        {
-          title: "Chem",
-          author: 'James',
-          terms: 84,
-          mastery: 20,
-          location: 3,
-          tags: ['blue', 'green', 'purple'],
-          studied: '1.1.2020',
-          creation: '7.8.2019'
-        },
-      ]
+      sets: sets
     }
+  },
+  methods: {
+    getIndex: (array, element) => {
+      let index = array.findIndex(element);
+      return index;
+    },
+    makeSets(sets) {
+      for(let i=0; i<this.sets.length; i++){
+        let box = document.createElement('div');
+        box.classList.add = "yesset";
+        box.id = "box " + i;
+        let button = document.createElement('button');
+        if(this.sets[i].mastery > 90){
+          button.classList.add("mastered");
+        } else if (this.sets[i].mastery < 91 && this.sets[i].mastery > 20){
+          button.classList.add("working");
+        } else {
+          button.classList.add("unseen");
+        }
+        button.id = "btn" + i;
+        button.classList.add("set");
+        let h1 = document.createElement('h1');
+        h1.innerText = sets[i].title;
+        button.append(h1);
+        let h2 = document.createElement('h2');
+        h2.innerText = sets[i].author;
+        button.append(h2);
+        let h3 = document.createElement('h3');
+        h3.innerText = sets[i].studied;
+        button.append(h3);
+        if(sets[i].tags){
+          makeTags(sets[i].tags, button);
+        }
+        box.append(button);
+        document.getElementById('sets').append(box);
+        styleBox(box);
+        styleButton(button, sets[i].mastery);
+        styleText(h1, h2, h3);
+        
+      }
+    },
   },
   computed: {
      yesSetCols: () => {
@@ -133,22 +104,198 @@ export default {
   }
 }
 
-function constructor (){
-  let yesSet = document.querySelector(".content.sets.yesset");
-  let numRows;
-  yesSet.style.display = "grid";
-  for(let i=0; i<yesSet.offsetWidth; i+=200){
-    numRows++;
-  }
-  yesSet.style.gridTemplateRows = "1fr repeat(numRows, 200px) 1fr";
-  yesSet.style.gridTemplateColumns = "";
+let sets = [ // temporary
+  {
+    title: "Chem",
+    author: 'James',
+    terms: 84,
+    mastery: 99,
+    location: 1,
+    tags: ['blue', 'green', 'purple', 'yellow', 'orange', 'red', 'black'],
+    studied: '7.10.2020',
+    creation: '7.8.2020'
+  },
+  {
+    title: "Chem",
+    author: 'James',
+    terms: 84,
+    mastery: 44,
+    location: 2,
+    tags: ['blue', 'green', 'purple', 'yellow'],
+    studied: '8.14.2020',
+    creation: '7.8.2020'
+  },
+  {
+    title: "Chem",
+    author: 'James',
+    terms: 84,
+    mastery: 20,
+    location: 3,
+    tags: ['blue', 'green', 'purple'],
+    studied: '1.1.2020',
+    creation: '7.8.2019'
+  },
+  {
+    title: "Chem",
+    author: 'James',
+    terms: 84,
+    mastery: 20,
+    location: 3,
+    tags: ['blue', 'green', 'purple'],
+    studied: '1.1.2020',
+    creation: '7.8.2019'
+  },
+  {
+    title: "Chem",
+    author: 'James',
+    terms: 84,
+    mastery: 20,
+    location: 3,
+    tags: ['blue', 'green', 'purple'],
+    studied: '1.1.2020',
+    creation: '7.8.2019'
+  },
+  {
+    title: "Chem",
+    author: 'James',
+    terms: 84,
+    mastery: 20,
+    location: 3,
+    tags: ['blue', 'green', 'purple'],
+    studied: '1.1.2020',
+    creation: '7.8.2019'
+  },
+];
+
+function styleBox(box){
+  box.style.float = 'left';
+  box.style.height = '190px';
+  box.style.width = '240px';
+  box.style.margin = '0 auto';
 }
 
+function styleButton(button, mastery){
+  button.style.backgroundColor = 'rgb(235,235,235)';
+  button.style.transitionDuration = '400ms';
+  button.style.float = 'left';
+  button.style.border = '0px solid black';
+  button.style.display = 'grid';
+  button.style.grid = '1fr / 11fr 2fr';
+  button.style.borderRadius = '7px';
+  button.style.padding = '10px';
+  button.style.margin = '20px';
+  button.style.height = '150px';
+  button.style.width = '200px';
+
+  button.onmouseout = () => {
+    button.style.backgroundColor = 'rgb(235,235,235)';
+  }
+
+  if(mastery > 90){
+    button.onmouseover = () => {
+      button.style.backgroundColor = 'rgba(52, 202, 52, 0.24)';
+      button.style.transitionDuration = '400ms';
+    }
+  } else if (mastery < 91 && mastery > 30){
+    button.onmouseover = () => {
+      button.style.backgroundColor = 'rgba(255, 216, 40, 0.438)';
+      button.style.transitionDuration = '400ms';
+    }
+  } else {
+    button.onmouseover = () => {
+      button.style.backgroundColor = 'rgba(255, 0, 0, 0.247)';
+      button.style.transitionDuration = '400ms';
+    }
+  }
+}
+
+function styleText(h1, h2, h3){
+  for(let i=0; i<arguments.length; i++){
+    arguments[i].style.textAlign = 'left';
+    arguments[i].style.lineHeight = 'auto';
+    arguments[i].style.margin = '17px';
+    arguments[i].style.marginTop = '10px';
+    arguments[i].style.fontSize = '29px';
+    arguments[i].style.gridColumn = '1/1';
+  }
+
+  h1.style.height = '35px';
+  
+  h2.style.fontWeight = '200';
+  h2.style.fontSize = '20px';
+  h2.style.position = 'relative';
+  h2.style.bottom = '60px';
+
+  h3.style.fontSize = '13px';
+  h3.style.fontWeight = '200';
+  h3.lineHeight = '0px';
+  h3.style.position = 'relative'; 
+  h3.style.bottom = '80px';
+}
+
+function makeTags(tags, button){
+  let tagHolder = document.createElement('div');
+  tagHolder.id = 'tags';
+
+  tagHolder.style.gridArea = '1/2';
+  tagHolder.style.marginTop = '6px';
+  tagHolder.style.marginRight = '9px';
+  tagHolder.style.height = '120px';
+  tagHolder.style.width = 'auto';
+  tagHolder.style.display = 'grid';
+  tagHolder.style.gridTemplateRows = 'repeat (7, 1fr)';
+  tagHolder.style.gridGap = '4px';
+
+  for(let i=0; i<sets.length; i++){
+    let tag = document.createElement('div');
+    tag.id = tags[i];
+    tagHolder.append(tag);
+
+    tag.style.borderRadius = '4px';
+    tag.style.height = 'auto';
+
+    switch(tag.id){
+      case 'blue':
+        tag.style.backgroundColor = 'rgba(0, 60, 255, 0.466)';
+        break;
+      case 'green':
+        tag.style.backgroundColor = 'rgba(2, 109, 39, 0.699)';
+        break;
+      case 'purple':
+        tag.style.backgroundColor = 'rgba(76, 0, 255, 0.5)';
+        break;
+      case 'yellow':
+        tag.style.backgroundColor = 'rgb(244, 255, 88)';
+        break;
+      case 'orange':
+        tag.style.backgroundColor = 'rgba(216, 140, 0, 0.788)';
+        break;
+      case 'red':
+        tag.style.backgroundColor = 'rgba(255, 0, 0, 0.678)';
+        break;
+      case 'black':
+        tag.style.backgroundColor = 'black';
+    }
+  }
+
+  button.append(tagHolder);
+
+}
+      
 </script>
 
 <style scoped>
+#page{
+  display: grid;
+  grid: 40px 1fr/10px minmax(250px, 1fr) 10px;
+  grid-gap: 20px;
+}
+
+.header {
+  grid-column: 1/span 3;
+}
+
 .navbar {
-  grid-area: 1/1/span 1/span 3;
   background-color: rgb(15, 179, 72);
   display: grid;
   grid-template-columns: 15% repeat(3, 1fr) 15%;
@@ -181,7 +328,12 @@ function constructor (){
   transition-duration: 300ms;
 }
 
-.content .sets .noset {
+.content {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+.content #sets .noset {
   width: 100%;
   white-space: nowrap;
   position: absolute;
@@ -192,7 +344,7 @@ function constructor (){
   display: grid;
 }
 
-.content .sets .noset h1 {
+.content #sets .noset h1 {
   margin: 0;
   position: absolute;
   top: 50%;
@@ -201,100 +353,16 @@ function constructor (){
   transform: translate(-50%, -50%);  font-size: 70px;
 }
 
-.content .sets .noset a {
+.content #sets .noset a {
   color: black;
   transform: translate(0px, 65px);
   text-decoration: none;
   font-size: 30px;
 }
 
-.content .sets .noset a:hover {
+.content #sets .noset a:hover {
   color: rgb(182, 15, 15);
   transition-duration: 300ms;
-}
-
-.content .sets .yesset {
-  width: 100%;
-  margin: 0 auto;
-}
-
-.content .sets .yesset button {
-  transition-duration: 400ms;
-  float: left;
-  border: 0px solid black;
-  display: grid;
-  grid: 1fr / 11fr 2fr;
-  border-radius: 7px;  
-  padding: 5px;
-  margin: 20px;
-  height: 150px;
-  width: 200px;
-}
-
-.content .sets .yesset .mastered:hover {
-  background-color: rgba(52, 202, 52, 0.24);
-  transition-duration: 400ms;
-}
-
-.content .sets .yesset .working:hover {
-  background-color: rgba(255, 216, 40, 0.438);
-  transition-duration: 400ms;
-}
-
-.content .sets .yesset .unseen:hover {
-  background-color: rgba(255, 0, 0, 0.247);
-  transition-duration: 400ms;
-}
-
-.content .sets .yesset button h1, h2, h3 {
-  text-align: left;
-  line-height: 17px;
-  margin: 17px;
-  font-size: 29px;
-}
-
-.content .sets .yesset button h2 {
-  font-weight: 200;
-  font-size: 17px;
-}
-
-.content .sets .yesset button h3 {
-  font-size: 13px;
-  font-weight: 200;
-  line-height: 0px;
-}
-
-.content .sets .yesset button .tags {
-  grid-column: 2;
-  grid-row: 1;
-  margin-top: 6px;
-  margin-right: 9px;
-  height: 90%;
-  width: auto;
-  display: grid;
-  grid-template-rows: repeat(7, 1fr);
-  grid-gap: 4px;
-}
-
-.content .sets .yesset button .tags .tag {
-  height: auto;
-  border-radius: 4px;
-}
-
-#blue{
-  background-color: rgba(0, 60, 255, 0.466);
-} #green {
-  background-color: rgba(2, 109, 39, 0.699);
-} #purple {
-  background-color: rgba(76, 0, 255, 0.5);
-} #yellow {
-  background-color: rgb(244, 255, 88);
-} #orange {
-  background-color: rgba(216, 140, 0, 0.788);
-} #red {
-    background-color: rgba(255, 0, 0, 0.678);
-} #black {
-  background-color: rgb(0, 0, 0);
 }
 
 .content .add button {

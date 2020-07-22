@@ -12,6 +12,7 @@
 
 <script>
 export default {
+  name: 'Classespage'
   
 }
 </script>
@@ -22,9 +23,7 @@ export default {
   background-color: rgb(15, 179, 72);
   display: grid;
   grid-template-columns: 15% repeat(3, 1fr) 15%;
-
 }
-
 .navbar h1 {
   font-size: 20px;
   font-weight: 700;
@@ -33,7 +32,6 @@ export default {
   border: 4px solid green;
   text-align: center;
 }
-
 .navbar button {
   background-color: rgb(15, 179, 72);
   border: 0px solid black;
@@ -42,11 +40,9 @@ export default {
   padding: 10px 0;
   transition-duration: 300ms;
 }
-
 .navbar .active {
   background-color: rgb(15, 138, 58);
 }
-
 .navbar .inactive:hover {
   color: rgba(255, 255, 255, 0.75);
   transition-duration: 300ms;

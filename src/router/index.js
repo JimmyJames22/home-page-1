@@ -32,7 +32,7 @@ export default new Router({
     },
     {
       path: '/classes',
-      name: 'Class List',
+      name: 'Classespage',
       component: Classespage
     },
   ]
