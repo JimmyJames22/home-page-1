@@ -52,17 +52,11 @@ export default {
     makeSets(sets) {
       for(let i=0; i<this.sets.length; i++){
         let box = document.createElement('div');
-        box.classList.add = "yesset";
-        box.id = "box " + i;
+        box.classList.add("yesset");
+        box.id = i;
         let button = document.createElement('button');
-        if(this.sets[i].mastery > 90){
-          button.classList.add("mastered");
-        } else if (this.sets[i].mastery < 91 && this.sets[i].mastery > 20){
-          button.classList.add("working");
-        } else {
-          button.classList.add("unseen");
-        }
-        button.id = "btn" + i;
+        button.draggable = true;
+        button.id = i;
         button.classList.add("set");
         let h1 = document.createElement('h1');
         h1.innerText = sets[i].title;
@@ -81,7 +75,6 @@ export default {
         styleBox(box);
         styleButton(button, sets[i].mastery);
         styleText(h1, h2, h3);
-        
       }
     },
   },
@@ -106,7 +99,7 @@ export default {
 
 let sets = [ // temporary
   {
-    title: "Chem",
+    title: "Chem1",
     author: 'James',
     terms: 84,
     mastery: 99,
@@ -116,7 +109,7 @@ let sets = [ // temporary
     creation: '7.8.2020'
   },
   {
-    title: "Chem",
+    title: "Chem2",
     author: 'James',
     terms: 84,
     mastery: 44,
@@ -126,7 +119,7 @@ let sets = [ // temporary
     creation: '7.8.2020'
   },
   {
-    title: "Chem",
+    title: "Chem3",
     author: 'James',
     terms: 84,
     mastery: 20,
@@ -136,7 +129,7 @@ let sets = [ // temporary
     creation: '7.8.2019'
   },
   {
-    title: "Chem",
+    title: "Chem4",
     author: 'James',
     terms: 84,
     mastery: 20,
@@ -146,7 +139,7 @@ let sets = [ // temporary
     creation: '7.8.2019'
   },
   {
-    title: "Chem",
+    title: "Chem5",
     author: 'James',
     terms: 84,
     mastery: 20,
@@ -156,7 +149,7 @@ let sets = [ // temporary
     creation: '7.8.2019'
   },
   {
-    title: "Chem",
+    title: "Chem6",
     author: 'James',
     terms: 84,
     mastery: 20,
@@ -166,6 +159,55 @@ let sets = [ // temporary
     creation: '7.8.2019'
   },
 ];
+
+let dragged = null;
+
+document.addEventListener('dragstart', function(event){
+  if(event.target.className == 'set'){
+    dragged = event.target;
+    dragged.style.opacity = 0.5;
+  }
+});
+
+document.addEventListener('dragover', function(event){
+  if(event.target.className === 'yesset'){
+    if(dragged.parentNode.id > event.target.id && !event.target.contains(dragged)){
+      let start = dragged.parentNode.id;
+      dragged.parentNode.removeChild(dragged);
+      for(let i=start; i>=event.target.id; i--){
+        let moveSet = document.getElementsByClassName('yesset')[i].children[0];
+        if(moveSet){
+          document.getElementsByClassName('yesset')[i+1].appendChild(moveSet);
+        }
+      }
+      event.target.append(dragged);
+    } else if(dragged.parentNode.id < event.target.id && !event.target.contains(dragged) && dragged.parentNode){
+      let start = dragged.parentNode.id;
+      dragged.parentNode.removeChild(dragged);
+      for(let i=start; i<=event.target.id; i++){
+        let moveSet = document.getElementsByClassName('yesset')[i].children[0];
+        if(moveSet){
+          document.getElementsByClassName('yesset')[i-1].appendChild(moveSet);
+        }
+      }
+      event.target.append(dragged);
+    }
+  }
+});
+
+document.addEventListener('dragend', function(event){
+  event.target.style.opacity = "";
+    for(let i=0; i<sets.length; i++){
+      document.getElementsByClassName('yesset')[i].children[0].id = i;
+    }
+});
+
+document.addEventListener('drop', function(event){
+  if(event.target.className === 'yesset'){
+    event.preventDefault();
+    event.target.appendChild(dragged);
+  }
+});
 
 function styleBox(box){
   box.style.float = 'left';
@@ -186,7 +228,7 @@ function styleButton(button, mastery){
   button.style.margin = '20px';
   button.style.height = '150px';
   button.style.width = '200px';
-
+  
   button.onmouseout = () => {
     button.style.backgroundColor = 'rgb(235,235,235)';
   }
@@ -279,9 +321,8 @@ function makeTags(tags, button){
   }
 
   button.append(tagHolder);
-
 }
-      
+
 </script>
 
 <style scoped>
