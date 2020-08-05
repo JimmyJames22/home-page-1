@@ -104,7 +104,7 @@ export default {
     return {
       user: {
         name: "nameString",
-        percent: 82
+        percent: 45
       }
     }
   }, 
@@ -329,6 +329,7 @@ export default {
 .content .add button h1 {
   float: left;
   margin: 7px;
+  transition-duration: 100ms;
 }
 
 .content .add button:hover h1 {
@@ -340,6 +341,7 @@ export default {
   font-size: 0px;
   float: right;
   margin: 0px;
+  transition-duration: 100ms;
 }
 
 .content .add button:hover h2 {
