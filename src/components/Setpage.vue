@@ -249,7 +249,7 @@ document.addEventListener('dragover', function(event){
       for(let i=start; i>=event.target.id; i--){
         let moveSet = document.getElementsByClassName('yesset')[i].children[0];
         if(moveSet){
-          document.getElementsByClassName('yesset')[i+1].appendChild(moveSet);
+          document.getElementsByClassName('yesset')[parseInt(i)+1].appendChild(moveSet);
         }
       }
       event.target.append(dragged);
@@ -259,7 +259,7 @@ document.addEventListener('dragover', function(event){
       for(let i=start; i<=event.target.id; i++){
         let moveSet = document.getElementsByClassName('yesset')[i].children[0];
         if(moveSet){
-          document.getElementsByClassName('yesset')[i-1].appendChild(moveSet);
+          document.getElementsByClassName('yesset')[parseInt(i)-1].appendChild(moveSet);
         }
       }
       event.target.append(dragged);
@@ -277,7 +277,6 @@ document.addEventListener('dragend', function(event){
 document.addEventListener('drop', function(event){
   if(event.target.className === 'yesset'){
     event.preventDefault();
-    event.target.appendChild(dragged);
   }
 });
 
